@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gateway - AI Skill Assessment</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .auth-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            background: white;
+        }
+    </style>
+</head>
+<body class="d-flex flex-column min-h-screen justify-content-center py-5">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-black text-primary">CompetenceAI</h2>
+                    <p class="text-muted small">Python Flask + Scikit-Learn Classifiers System</p>
+                </div>
+
+                <div class="card auth-card p-4">
+                    <!-- Flashed Warnings -->
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        {% for msg in messages %}
+                          <div class="alert alert-danger py-2 small" role="alert">{{ msg }}</div>
+                        {% endfor %}
+                      {% endif %}
+                    {% endwith %}
+
+                    <!-- Nav Tabs toggling Login vs Register -->
+                    <ul class="nav nav-pills nav-justified mb-4" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active small fw-bold" id="tab-login" data-bs-toggle="pill" data-bs-target="#panel-login" type="button">Login</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small fw-bold" id="tab-register" data-bs-toggle="pill" data-bs-target="#panel-register" type="button">Register</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- LOGIN PANEL -->
+                        <div class="tab-pane fade show active" id="panel-login">
+                            <form action="/login" method="POST">
+                                <input type="hidden" name="action" value="login">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold text-muted">Candidate Username</label>
+                                    <input type="text" name="username" class="form-control" placeholder="e.g. pujalameghana" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-semibold text-muted">Secure Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-full w-100 py-2.5 fw-bold">Sign In</button>
+                            </form>
+                        </div>
+
+                        <!-- REGISTER PANEL -->
+                        <div class="tab-pane fade" id="panel-register">
+                            <form action="/login" method="POST">
+                                <input type="hidden" name="action" value="register">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold text-muted">Aspirant Username</label>
+                                    <input type="text" name="username" class="form-control" placeholder="Choose a name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-semibold text-muted">Passphrase</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Secure code" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label small fw-semibold text-muted">Domain of Interest</label>
+                                    <select name="interest" class="form-select">
+                                        <option>Python</option>
+                                        <option>Java</option>
+                                        <option>DBMS</option>
+                                        <option>Data Structures</option>
+                                        <option>Web Development</option>
+                                        <option>Artificial Intelligence</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 py-2.5 fw-bold">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4 small text-muted font-monospace">
+                    Student Login: <span class="bg-light px-2 py-0.5 rounded">student / student</span><br>
+                    Admin Login: <span class="bg-light px-2 py-0.5 rounded">admin / admin</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

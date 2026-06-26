@@ -1,0 +1,6 @@
+{
+  "name": "AI-Based Skill Assessment and Course Recommendation System",
+  "description": "An AI-powered full-stack platform that evaluates technical skills across multiple domains and provides personalized course and career recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

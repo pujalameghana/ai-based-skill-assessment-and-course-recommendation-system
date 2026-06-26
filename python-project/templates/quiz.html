@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Quiz - {{ domain }}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; }
+        .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    </style>
+</head>
+<body class="py-5">
+
+    <div class="container max-w-2xl">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <span class="text-xs uppercase fw-bold text-primary font-monospace">Active Competency Assessment</span>
+                <h3 class="fw-bold m-0">{{ domain }} Quiz</h3>
+            </div>
+            <a href="/dashboard" class="btn btn-outline-secondary btn-sm font-semibold">Exit Quiz</a>
+        </div>
+
+        {% if not questions %}
+        <div class="card p-5 text-center card-custom bg-white">
+            <h5 class="fw-bold">No Questions Configured</h5>
+            <p class="text-muted small">Please login to the Admin dashboard and populate question bank entries for <b>{{ domain }}</b>.</p>
+        </div>
+        {% else %}
+        <form action="/quiz/{{ domain }}" method="POST" id="quiz-form">
+            {% for q in questions %}
+            <div class="card p-4 card-custom bg-white mb-4">
+                <span class="badge bg-light text-primary font-monospace align-self-start mb-2">Question #{{ loop.index }}</span>
+                <h5 class="fw-medium mb-3">{{ q.question }}</h5>
+                
+                <div class="form-check p-2 my-1 rounded border hover-bg">
+                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q_{{ q.id }}_A" value="A" required>
+                    <label class="form-check-label w-100" for="q_{{ q.id }}_A">{{ q.option_a }}</label>
+                </div>
+                <div class="form-check p-2 my-1 rounded border">
+                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q_{{ q.id }}_B" value="B">
+                    <label class="form-check-label w-100" for="q_{{ q.id }}_B">{{ q.option_b }}</label>
+                </div>
+                <div class="form-check p-2 my-1 rounded border">
+                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q_{{ q.id }}_C" value="C">
+                    <label class="form-check-label w-100" for="q_{{ q.id }}_C">{{ q.option_c }}</label>
+                </div>
+                <div class="form-check p-2 my-1 rounded border">
+                    <input class="form-check-input" type="radio" name="q_{{ q.id }}" id="q_{{ q.id }}_D" value="D">
+                    <label class="form-check-label w-100" for="q_{{ q.id }}_D">{{ q.option_d }}</label>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary px-5 py-2.5 fw-bold w-100">Submit Quiz & Calculate Skill Tier</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

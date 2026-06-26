@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Skill Assessment</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8fafc; }
+        .card-custom { border: none; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+    </style>
+</head>
+<body class="py-4">
+
+    <div class="container max-w-5xl">
+        <!-- Top Nav Header -->
+        <header class="d-flex justify-content-between align-items-center mb-5 pb-3 border-b border-bottom">
+            <div class="d-flex align-items-center gap-2">
+                <div class="bg-primary text-white p-2 rounded-3 text-center fw-bold font-monospace" style="width: 38px; height: 38px;">A</div>
+                <div>
+                    <h5 class="m-0 fw-bold">CompetenceAI</h5>
+                    <span class="text-muted small">Candidate Assessment Panel</span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-muted small">Hello, <b>{{ current_user.username }}</b></span>
+                <a href="/logout" class="btn btn-outline-danger btn-sm fw-bold">Logout</a>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ msg }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- Upper Banner -->
+        <div class="bg-dark text-white p-5 rounded-4 mb-5 card-custom">
+            <h2 class="fw-black">Your AI Specialization: {{ interest }}</h2>
+            <p className="text-secondary small">Launch a quiz in any domain below. The ML RandomForestClassifier evaluates your proficiency tier (Beginner, Intermediate, Advanced) and issues recommended courses with downloadable ReportLab PDFs.</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <!-- Domains Section -->
+            <div class="col-md-7">
+                <h4 class="fw-bold mb-4">Select Domain Quiz</h4>
+                <div class="row g-3">
+                    {% for dom in ["Python", "Java", "DBMS", "Data Structures", "Web Development", "Artificial Intelligence"] %}
+                    <div class="col-md-6">
+                        <div class="card p-4 card-custom bg-white">
+                            <h5 class="fw-bold">{{ dom }}</h5>
+                            <p class="text-muted small">Take 10 automated multiple-choice questions.</p>
+                            <a href="/quiz/{{ dom }}" class="btn btn-primary btn-sm w-100 fw-bold">Start Quiz</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- History log sidebar -->
+            <div class="col-md-5">
+                <h4 class="fw-bold mb-4">Competency Log History</h4>
+                <div class="card p-4 card-custom">
+                    {% if not assessments %}
+                    <p class="text-muted text-center small my-4">No assessments taken yet.</p>
+                    {% else %}
+                    <div class="list-group list-group-flush">
+                        {% for a in assessments %}
+                        <div class="list-group-item px-0 py-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1 fw-bold">{{ a.domain }} Assessment</h6>
+                                <span class="badge bg-light text-dark small text-muted">{{ a.taken_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                            </div>
+                            <div class="text-end">
+                                <span class="d-block fw-bold text-indigo font-monospace">{{ a.score }}/{{ a.total_questions }} ({{ a.percentage }}%)</span>
+                                <span class="badge bg-success small">{{ a.skill_level }}</span>
+                                <a href="/download-report/{{ a.id }}" class="d-block small text-primary mt-1 fw-bold text-decoration-none">PDF Report</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
