@@ -1,6 +1,6 @@
-# AI-Based Skill Assessment and Course Recommendation System (B.Tech / MCA Project Submission)
+# AI-Based Skill Assessment and Course Recommendation System 
 
-A fully complete, enterprise-grade final year engineering project. It contains **two** distinct cutting-edge architectures:
+A fully complete, enterprise-grade  engineering project. It contains **two** distinct cutting-edge architectures:
 1. **Interactive Live Demonstration (React 19 + Express full-stack + Server-Side Gemini 3.5 AI)**: Running instantly inside your AI Studio Workspace build previews. Uses advanced Large Language models for real-time qualitative skill-gap analysis, custom roadmapping, and downloadable performance reports.
 2. **Local Academic Submission Stack (Python 3.10+ Flask + Scikit-learn RandomForestClassifier + ReportLab PDFs + MySQL)**: Standard desktop execution codebase for local compilation, model pickle generation, and project file submission.
 
